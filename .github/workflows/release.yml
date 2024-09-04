@@ -25,5 +25,5 @@ jobs:
           password: "${{secrets.GITHUB_TOKEN}}"
       - name: Build image
         run: |
-          docker build --platform linux/arm64 . --tag ghcr.io/${{github.repository}}:latest
+          docker build . --tag ghcr.io/${{github.repository}}:latest
           docker push ghcr.io/${{github.repository}}:latest
