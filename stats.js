@@ -39,27 +39,29 @@ var getContainers = function() {
             var line = lines[i];
             var columns = line.split(/\s{3,}/g);
             if (columns.length >= 6) {
-                var containerId = columns[0];
-                if (containerId) {
+                if (columns[0]) {
                     var name = columns[1];
-                    var cpu = columns[2];
-                    var mem = columns[3];
-                    var net = columns[4];
-                    var block = columns[5];
-
-                    containers[containerId] = {
-                        'name': name,
-                        'cpu': cpu.replace('%', ''),
-                        'mem': getBytes(mem.split(' / ')[0]),
-                        'net': {
-                            'in': getBytes(net.split(' / ')[0]),
-                            'out': getBytes(net.split(' / ')[1])
-                        },
-                        'block': {
-                            'in': getBytes(block.split(' / ')[0]),
-                            'out': getBytes(block.split(' / ')[1])
-                        }
-                    };
+                    if (name.match(/^[a-z0-9_]+\.[a-z0-9_]+\.[a-z0-9_]+$/)) {
+                        var containerId = name;
+                        var cpu = columns[2];
+                        var mem = columns[3];
+                        var net = columns[4];
+                        var block = columns[5];
+    
+                        containers[containerId] = {
+                            'name': name,
+                            'cpu': cpu.replace('%', ''),
+                            'mem': getBytes(mem.split(' / ')[0]),
+                            'net': {
+                                'in': getBytes(net.split(' / ')[0]),
+                                'out': getBytes(net.split(' / ')[1])
+                            },
+                            'block': {
+                                'in': getBytes(block.split(' / ')[0]),
+                                'out': getBytes(block.split(' / ')[1])
+                            }
+                        };
+                    }
                 }
             }
         }
