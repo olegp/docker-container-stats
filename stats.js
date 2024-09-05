@@ -41,7 +41,7 @@ var getContainers = function() {
             if (columns.length >= 6) {
                 if (columns[0]) {
                     var name = columns[1];
-                    if (name.match(/^[a-z0-9_]+\.[a-z0-9_]+\.[a-z0-9_]+$/)) {
+                    if (name.match(/^[a-z0-9_]+\.(?!run|cron)[a-z0-9_]+\.[a-z0-9_]+$/)) {
                         var containerId = name;
                         var cpu = columns[2];
                         var mem = columns[3];
